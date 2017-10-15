@@ -1,2 +1,3 @@
 # kele-nkimberly
-Kele is a Ruby Gem API client built to access the Bloc API.
+
+kele-nkimberly integrates HTTParty and JSON to access the Bloc API.
