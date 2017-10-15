@@ -1,6 +1,8 @@
-# https://johnnunemaker.com/httparty/
+# https://github.com/jnunemaker/httparty
+# https://github.com/flori/json
 
 require 'httparty'
+require 'json'
 
 class Kele
 
@@ -23,11 +25,23 @@ class Kele
       }
     }
 
-    signin = self.class.post('/sessions', options)
+    response = self.class.post('/sessions', options)
 
-    @current_user_token = signin['auth_token']
+    @auth_token = response['auth_token']
 
-    raise "Wrong email or password. Try again." if signin.code == 404
+    raise "Wrong email or password. Try again." if response.code == 404
+
+  end
+
+  def get_me
+
+    response = self.class.get(
+      '/users/me', headers: {
+        "authorization" => @auth_token
+        }
+      )
+
+    @current_user = JSON.parse(response.body)
 
   end
 

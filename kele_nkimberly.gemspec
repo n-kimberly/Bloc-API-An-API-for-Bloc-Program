@@ -13,4 +13,5 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
   # We added a httparty dependency using add_runtime_dependency. This instructs bundle to install httparty, which provides a programmatic Ruby interface to make HTTP requests.
   s.add_runtime_dependency 'httparty', '~> 0.13'
+  s.add_runtime_dependency 'json', '~> 1.8', '>= 1.8.3'
 end
