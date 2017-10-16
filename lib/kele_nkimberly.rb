@@ -3,6 +3,7 @@
 
 require "httparty"
 require "json"
+require "/home/n-kimberly/bloc/ruby/kele-nkimberly/lib/roadmap.rb"
 
 class Kele
 
@@ -13,6 +14,7 @@ class Kele
   end
 
   include HTTParty
+  include Roadmap
 
   base_uri "https://www.bloc.io/api/v1"
 
@@ -60,29 +62,6 @@ class Kele
 
   end
 
-  def get_roadmap(roadmap_id)
-
-    response = self.class.get(
-      "/roadmaps/#{roadmap_id}", headers: {
-        "authorization" => @auth_token
-      }
-    )
-
-    @roadmap = JSON.parse(response.body)
-
-  end
-
-  def get_checkpoint(checkpoint_id)
-
-    response = self.class.get(
-      "/checkpoints/#{checkpoint_id}", headers: {
-        "authorization" => @auth_token
-      }
-    )
-
-    @checkpoint = JSON.parse(response.body)
-
-  end
 
   def get_messages(page = 1)
 
