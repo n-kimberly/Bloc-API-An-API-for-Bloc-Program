@@ -31,6 +31,9 @@ class Kele
 
     raise "Wrong email or password. Try again." if response.code == 404
 
+    get_me
+    @user_email = @current_user["email"]
+
   end
 
   def get_me
@@ -78,6 +81,18 @@ class Kele
     )
 
     @checkpoint = JSON.parse(response.body)
+
+  end
+
+  def get_messages(page = 1)
+
+    response = self.class.get(
+      "/message_threads?page=#{page}", headers: {
+        "authorization" => @auth_token
+      }
+    )
+
+    @messages = JSON.parse(response.body)
 
   end
 
