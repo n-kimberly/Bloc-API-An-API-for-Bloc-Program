@@ -21,9 +21,9 @@ class Kele
   def initialize(email, password)
 
     options = {
-      body: {
-        email: email,
-        password: password
+      query: {
+        "email": email,
+        "password": password
       }
     }
 
@@ -75,19 +75,17 @@ class Kele
 
   end
 
-
   def create_message(recipient_id, subject, message)
 
     options = {
+      query: {
+        "sender": @user_email,
+        "recipient_id": recipient_id,
+        "subject": subject,
+        "stripped-text": message
+      },
       headers: {
         "authorization" => @auth_token
-      },
-      body: {
-        sender: @user_email,
-        recipient_id: recipient_id,
-        token: @auth_token,
-        subject: subject,
-        stripped_text: message
       }
     }
 
