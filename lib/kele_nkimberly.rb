@@ -35,6 +35,7 @@ class Kele
 
     get_me
     @user_email = @current_user["email"]
+    @enrollment_id = @current_user["current_enrollment"]["id"]
 
   end
 
@@ -90,6 +91,27 @@ class Kele
     }
 
     response = self.class.post("/messages", options)
+
+    puts response
+
+  end
+
+  def create_submission(assignment_branch, assignment_commit_link, checkpoint_id, comment)
+
+    options = {
+      query: {
+        "assignment_branch": assignment_branch,
+        "assignment_commit_link": assignment_commit_link,
+        "checkpoint_id": checkpoint_id,
+        "comment": comment,
+        "enrollment_id": @enrollment_id,
+      },
+      headers: {
+        "authorization" => @auth_token
+      }
+    }
+
+    response = self.class.post("/checkpoint_submissions", options)
 
     puts response
 
